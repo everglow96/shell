@@ -24,9 +24,9 @@ function main(){
         `rm -rf ${each}`
         echo "already remove " ${each}
     done
-    if [[ '$1' == "mysql" ] || [ '$1' == "MySQL" ]]; then
+    if [[ '$1' == "mysql" ]]; then
         echo "remove /etc/my.cnf"
-    `rm -rf /etc/my.cnf`
+        `rm -rf /etc/my.cnf`
     fi
 
     echo "remove finish"
