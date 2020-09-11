@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
 #./xxx.sh -p -c -h
-war_sh=("oplus-svs")
-operation=""
-projects=()
-deploy_or_monit=""
+war_sh_arr=("oplus-svs" "oplus-ata" "oplus-dts")
 
-# 首先 如果有restart命令， 一定重启minit中是svs， 如果有其他的模块，我就取build
+# 定义各异关系模块， 找到  "oplus-svs" "oplus-ata" "oplus-dts"的父模块 重启这个模块
+# 如果 oplus-ata 存在子模块， 需要重启所有子模块
+oplus_svs=("model_a" "model_a1" "model_a2")
+oplus_ata=("model_b" "model_b1" "model_b2")
+oplus_dts=("model_c" "model_c1" "model_c2")
+
 
 function operation_sh(){
     operation=${@:1:1}
@@ -46,7 +48,7 @@ function read_input () {
 
 
 function usage() {
-   echo "Usage: sudo ./build-before.sh -p project_name [restart]"
+   echo "Usage: sudo ./build-before.sh -p [module] [restart]"
    echo "Supported deploy project or restart monit"
    echo "-c|--checkout false  Do not checkout source"
    echo "-p|--project false  Do not find project source"
@@ -69,7 +71,7 @@ function run_build_war_sh() {
 
 function run_monit_sh() {
     echo "=======> monit restart"
-    for i in ${war_sh[@]}
+    for i in ${war_sh_arr[@]}
     do
     echo "run_monit_sh" ${i}
 #        (monit restart ${i})
@@ -79,9 +81,8 @@ function run_monit_sh() {
 
 function is_war_sh(){
     war_flag="no"
-    for i in ${war_sh[@]}
+    for i in ${war_sh_arr[@]}
     do
-        echo "ever" i ${i}
        [[ "$i" == "$1" ]] && war_flag="yes" && break
     done
 }
