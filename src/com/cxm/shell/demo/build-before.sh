@@ -3,13 +3,6 @@
 #./xxx.sh -p -c -h
 war_sh_arr=("oplus-svs" "oplus-ata" "oplus-dts")
 
-# 定义各异关系模块， 找到  "oplus-svs" "oplus-ata" "oplus-dts"的父模块 重启这个模块
-# 如果 oplus-ata 存在子模块， 需要重启所有子模块
-oplus_svs=("model_a" "model_a1" "model_a2")
-oplus_ata=("model_b" "model_b1" "model_b2")
-oplus_dts=("model_c" "model_c1" "model_c2")
-
-
 function operation_sh(){
     operation=${@:1:1}
     if [[ ${@:$#} == "restart" ]]; then
@@ -56,26 +49,26 @@ function usage() {
 }
 
 function run_build_jar_sh() {
-    echo "=======> build-jar.sh deploy start"
-#    source "/opt/scripts/oplus/build-jar.sh" ${operation} $1
-    source "jar.sh" ${operation} $1
+    echo "=======> $1 deploy start"
+    source "/opt/scripts/oplus/build-java.sh" ${operation} $1
     rc=$?; if [[ ${rc} != 0 ]]; then exit ${rc}; fi
 }
 
 function run_build_war_sh() {
-    echo "=======> build-war.sh deploy start"
-#    source "/opt/scripts/oplus/build-war.sh" ${operation} $1
-    source "war.sh" ${operation} $1
+    echo "=======> $1 deploy start"
+    source "/opt/scripts/oplus/build-java.sh" ${operation} $1
     rc=$?; if [[ ${rc} != 0 ]]; then exit ${rc}; fi
 }
 
 function run_monit_sh() {
-    echo "=======> monit restart"
-    for i in ${war_sh_arr[@]}
-    do
-    echo "run_monit_sh" ${i}
-#        (monit restart ${i})
-        rc=$?; if [[ ${rc} != 0 ]]; then exit ${rc}; fi
+    for p in ${projects[@]} ; do
+        for i in ${war_sh_arr[@]} ; do
+            if [[ ${p} == ${i} ]]; then
+                echo "=======> ${p} monit restart"
+                (monit restart ${i})
+                rc=$?; if [[ ${rc} != 0 ]]; then exit ${rc}; fi
+            fi
+        done
     done
 }
 
