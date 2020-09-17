@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 
 #./xxx.sh -p -c -h
-war_sh=("oplus-svs")
-operation=""
-projects=()
-deploy_or_monit=""
-
-# 首先 如果有restart命令， 一定重启minit中是svs， 如果有其他的模块，我就取build
+war_sh_arr=("oplus-svs" "oplus-ata" "oplus-dts")
 
 function operation_sh(){
     operation=${@:1:1}
@@ -46,7 +41,7 @@ function read_input () {
 
 
 function usage() {
-   echo "Usage: sudo ./build-before.sh -p project_name [restart]"
+   echo "Usage: sudo ./build-before.sh -p [module] [restart]"
    echo "Supported deploy project or restart monit"
    echo "-c|--checkout false  Do not checkout source"
    echo "-p|--project false  Do not find project source"
@@ -54,34 +49,33 @@ function usage() {
 }
 
 function run_build_jar_sh() {
-    echo "=======> build-jar.sh deploy start"
-#    source "/opt/scripts/oplus/build-jar.sh" ${operation} $1
-    source "jar.sh" ${operation} $1
+    echo "=======> $1 deploy start"
+    source "/opt/scripts/oplus/build-java.sh" ${operation} $1
     rc=$?; if [[ ${rc} != 0 ]]; then exit ${rc}; fi
 }
 
 function run_build_war_sh() {
-    echo "=======> build-war.sh deploy start"
-#    source "/opt/scripts/oplus/build-war.sh" ${operation} $1
-    source "war.sh" ${operation} $1
+    echo "=======> $1 deploy start"
+    source "/opt/scripts/oplus/build-java.sh" ${operation} $1
     rc=$?; if [[ ${rc} != 0 ]]; then exit ${rc}; fi
 }
 
 function run_monit_sh() {
-    echo "=======> monit restart"
-    for i in ${war_sh[@]}
-    do
-    echo "run_monit_sh" ${i}
-#        (monit restart ${i})
-        rc=$?; if [[ ${rc} != 0 ]]; then exit ${rc}; fi
+    for p in ${projects[@]} ; do
+        for i in ${war_sh_arr[@]} ; do
+            if [[ ${p} == ${i} ]]; then
+                echo "=======> ${p} monit restart"
+                (monit restart ${i})
+                rc=$?; if [[ ${rc} != 0 ]]; then exit ${rc}; fi
+            fi
+        done
     done
 }
 
 function is_war_sh(){
     war_flag="no"
-    for i in ${war_sh[@]}
+    for i in ${war_sh_arr[@]}
     do
-        echo "ever" i ${i}
        [[ "$i" == "$1" ]] && war_flag="yes" && break
     done
 }
