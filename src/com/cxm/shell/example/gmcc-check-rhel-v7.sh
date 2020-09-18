@@ -70,13 +70,13 @@ declare -A params
 # Verify environment is ready, otherwise exit the script
 #===============================================================================
 function assert_env(){
-  local bash_ver=$(bash --version | grep -oP "GNU bash, version \K(\d*)")
-  local perl_ver=$(perl --version | grep -oP "This is perl.*v\K([\d\.]+)")
-  local error
+   bash_ver=$(bash --version | grep -oP "GNU bash, version \K(\d*)")
+   perl_ver=$(perl --version | grep -oP "This is perl.*v\K([\d\.]+)")
+   error
   [ "${bash_ver}" -lt 4 ] && error=true
-  local perl=$(type perl 2>/dev/null)
+   perl=$(type perl 2>/dev/null)
   [ -z "${perl}" ] && error=true 
-  if [ ! -z "${error}"]; then
+  if [ ! -z "${error}" ]; then
     echo "错误：脚本需要bash 4和perl支持，当前bash版本${bash_ver}，perl版本${perl_ver}" 1>&2
     exit 1
   fi
@@ -250,7 +250,7 @@ function get_sysctl_value(){
 #===============================================================================
 function check_oracle() {
   local val=false
-  $ [ ! -z $(id -u oracle 2>/dev/null) ] && val=true
+  [ ! -z $(id -u oracle 2>/dev/null) ] && val=true
   resmap["oracle_installed"]=${val}
   local items=(
     fs.aio-max-nr
@@ -579,8 +579,7 @@ function print_metrics() {
 # Print `checks` in YAML format.
 #===============================================================================
 function print_checks() {
-  # print_map_as_yaml checks
-  :
+#   print_map_as_yaml checks
 }
 
 #===============================================================================
