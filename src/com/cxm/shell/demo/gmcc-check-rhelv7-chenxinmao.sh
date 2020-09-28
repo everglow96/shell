@@ -496,9 +496,11 @@ function print_checks() {
   # print_map_as_yaml checks
   :
 }
+# 检查网卡 个数
+function check_network_card(){
+    network_card=$(/sbin/ifconfig -a)
 
-
-
+}
 
 
 init

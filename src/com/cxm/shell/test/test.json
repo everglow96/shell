@@ -1,0 +1,318 @@
+[
+  {
+    "index": "es6_bulletins_bulletin",
+    //====mp.patch_id
+    "id": "RHSA-2014:0376",
+    "score": null,
+    "sort": [
+      629601
+    ],
+    "doc_type": "bulletin",
+    "_source": {
+      "lastseen": "2019-08-13T18:45:42",
+      "references": [],
+      //====mp.affected_pkgs：把下面的所有packageFilename用逗号分隔拼成字符串
+      "affectedPackage": [
+        {
+          //====mpp.os_distro
+          "OS": "RedHat",
+          //====mpp.os_version
+          "OSVersion": "6",
+          //====mpp.pkg_version
+          "packageVersion": "1.0.1e-16.el6_5.7",
+          //====mpp.arch
+          "arch": "s390x",
+          //====mpp.pkg_name
+          "packageName": "openssl-devel",
+          //====mpp.pkg_fullname
+          "packageFilename": "openssl-devel-1.0.1e-16.el6_5.7.s390x.rpm",
+          //====mpp.operator
+          "operator": "lt"
+        },
+        {
+          "OS": "RedHat",
+          "OSVersion": "6",
+          "packageVersion": "1.0.1e-16.el6_5.7",
+          "arch": "s390",
+          "packageName": "openssl-devel",
+          "packageFilename": "openssl-devel-1.0.1e-16.el6_5.7.s390.rpm",
+          "operator": "lt"
+        }
+      ],
+      //====mp.description
+      "description": "OpenSSL is a toolkit that implements the Secure Sockets Layer (SSL v2/v3)\nand Transport Layer Security (TLS v1) protocols, as well as a\nfull-strength, general purpose cryptography library.\n\nAn information disclosure flaw was found in the way OpenSSL handled TLS and\nDTLS Heartbeat Extension packets. A malicious TLS or DTLS client or server\ncould send a specially crafted TLS or DTLS Heartbeat packet to disclose a\nlimited portion of memory per request from a connected client or server.\nNote that the disclosed portions of memory could potentially include\nsensitive information such as private keys. (CVE-2014-0160)\n\nRed Hat would like to thank the OpenSSL project for reporting this issue.\nUpstream acknowledges Neel Mehta of Google Security as the original\nreporter.\n\nAll OpenSSL users are advised to upgrade to these updated packages, which\ncontain a backported patch to correct this issue. For the update to take\neffect, all services linked to the OpenSSL library (such as httpd and other\nSSL-enabled services) must be restarted or the system rebooted.\n",
+      "reporter": "RedHat",
+      //====mp.publish_date
+      "published": "2014-04-08T04:00:00",
+      "type": "redhat",
+      //====mp.title
+      // todo: 这里抽取Critical、Important、Moderate、Low 所有么
+      //====mp.severity 通过正则抽取Critical、Important、Moderate、Low
+      "title": "(RHSA-2014:0376) Important: openssl security update",
+      "enchantments": {
+        "score": {
+          "rev": 2,
+          "modified": "2019-08-13T18:45:42",
+          "vector": "NONE",
+          "value": 5.3
+        },
+        "dependencies": {
+          "rev": 2,
+          //这是各种相关的漏洞编号，例如各家厂商的命名
+          "references": [
+            {
+              //====mp.related_vuls: 逗号分隔cve_id，拼成字符串
+              //====mpv.vul_id：数组每个元素一条记录
+              "idList": [
+                "CVE-2014-0160"
+              ],
+              "type": "cve"
+            },
+            {
+              "idList": [
+                "AKB:D165638B-97C5-4C99-BFA0-70576DB52324"
+              ],
+              "type": "attackerkb"
+            },
+            {
+              "idList": [
+                "SOL15159",
+                "F5:K15159"
+              ],
+              "type": "f5"
+            },
+            {
+              "idList": [
+                "CFOUNDRY:51A1D2F1D196381CC46CAE44EB5F5940"
+              ],
+              "type": "cloudfoundry"
+            },
+            {
+              "idList": [
+                "OPENSSL:CVE-2014-0160"
+              ],
+              "type": "openssl"
+            },
+            {
+              "idList": [
+                "KITPLOIT:7942195329946074809",
+                "KITPLOIT:8661324951126484733",
+                "KITPLOIT:8800200070735873517"
+              ],
+              "type": "kitploit"
+            },
+            {
+              "idList": [
+                "SECURITYVULNS:DOC:30494",
+                "SECURITYVULNS:DOC:30530",
+                "SECURITYVULNS:DOC:30477",
+                "SECURITYVULNS:DOC:30509",
+                "SECURITYVULNS:DOC:30520",
+                "SECURITYVULNS:DOC:30507",
+                "SECURITYVULNS:DOC:30511",
+                "SECURITYVULNS:DOC:30523",
+                "SECURITYVULNS:DOC:30472",
+                "SECURITYVULNS:DOC:30497"
+              ],
+              "type": "securityvulns"
+            },
+            {
+              "idList": [
+                "H1:6475",
+                "H1:32570",
+                "H1:49139",
+                "H1:44294"
+              ],
+              "type": "hackerone"
+            },
+            {
+              "idList": [
+                "MCAFEE_VSEL_SB10071.NASL",
+                "MCAFEE_NGFW_SB10071.NASL",
+                "FEDORA_2014-5337.NASL",
+                "JUNIPER_JSA10623.NASL",
+                "REDHAT-RHSA-2014-0377.NASL",
+                "ALA_ALAS-2014-320.NASL",
+                "KASPERSKY_INTERNET_SECURITY_HEARTBLEED.NASL",
+                "OPENSUSE-2014-318.NASL",
+                "JUNOS_PULSE_JSA10623.NASL",
+                "OPENVPN_HEARTBLEED.NASL"
+              ],
+              "type": "nessus"
+            },
+            {
+              "idList": [
+                "SSV:62086",
+                "SSV:62189",
+                "SSV:62190",
+                "SSV:62199",
+                "SSV:62239",
+                "SSV:62240",
+                "SSV:62182",
+                "SSV:62185",
+                "SSV:62186",
+                "SSV:62241"
+              ],
+              "type": "seebug"
+            },
+            {
+              "idList": [
+                "THREATPOST:2C5C82CF691D70F64A14DA1BEC242DD5",
+                "THREATPOST:15624C23F5CD5AC1029501D08A99D294",
+                "THREATPOST:9012A325F248438FAC15C4FB3082A796"
+              ],
+              "type": "threatpost"
+            },
+            {
+              "idList": [
+                "OPENVAS:871154",
+                "OPENVAS:881918",
+                "OPENVAS:1361412562310103936",
+                "OPENVAS:1361412562310850582",
+                "OPENVAS:1361412562310105722",
+                "OPENVAS:1361412562310881918"
+              ],
+              "type": "openvas"
+            },
+            {
+              "idList": [
+                "CESA-2014:0376"
+              ],
+              "type": "centos"
+            },
+            {
+              "idList": [
+                "ICSA-14-135-02",
+                "ICSA-14-114-01",
+                "ICSA-14-135-04",
+                "ICSA-14-126-01A"
+              ],
+              "type": "ics"
+            },
+            {
+              "idList": [
+                "EXPLOITPACK:1020403320036D688D074B47660E9F50",
+                "EXPLOITPACK:BBA53240047E43646B744C9628FA5EFD"
+              ],
+              "type": "exploitpack"
+            },
+            {
+              "idList": [
+                "THN:4868B616BCBA555DA2446F6F0EA837B0",
+                "THN:8D999AEE5218AD3BFA68E5ACE101F201",
+                "THN:0F7112302CBABF46D19CACCCFA6103C5"
+              ],
+              "type": "thn"
+            },
+            {
+              "idList": [
+                "PACKETSTORM:126069",
+                "PACKETSTORM:126101",
+                "PACKETSTORM:126308",
+                "PACKETSTORM:126070"
+              ],
+              "type": "packetstorm"
+            },
+            {
+              "idList": [
+                "1337DAY-ID-22114",
+                "1337DAY-ID-22122"
+              ],
+              "type": "zdt"
+            },
+            {
+              "idList": [
+                "RHSA-2014:0378"
+              ],
+              "type": "redhat"
+            },
+            {
+              "idList": [
+                "HUAWEI-SA-20140417-HEARTBLEED"
+              ],
+              "type": "huawei"
+            },
+            {
+              "idList": [
+                "ATLASSIAN:JRACLOUD-38927",
+                "ATLASSIAN:JRASERVER-38927"
+              ],
+              "type": "atlassian"
+            },
+            {
+              "idList": [
+                "5631AE98-BE9E-11E3-B5E3-C80AA9043978"
+              ],
+              "type": "freebsd"
+            },
+            {
+              "idList": [
+                "CISCO-SA-20140408-CVE-2014-0160"
+              ],
+              "type": "cisco"
+            },
+            {
+              "idList": [
+                "N0WHERE:76566"
+              ],
+              "type": "n0where"
+            },
+            {
+              "idList": [
+                "VULNERLAB:1254"
+              ],
+              "type": "vulnerlab"
+            },
+            {
+              "idList": [
+                "HP:C04262495"
+              ],
+              "type": "hp"
+            },
+            {
+              "idList": [
+                "MYHACK58:62201444409"
+              ],
+              "type": "myhack58"
+            },
+            {
+              "idList": [
+                "DEBIAN:DSA-2896-1:7AEC1"
+              ],
+              "type": "debian"
+            },
+            {
+              "idList": [
+                "NMAP:SSL-HEARTBLEED.NSE"
+              ],
+              "type": "nmap"
+            },
+            {
+              "idList": [
+                "ELSA-2014-0376"
+              ],
+              "type": "oraclelinux"
+            }
+          ],
+          "modified": "2019-08-13T18:45:42"
+        }
+      },
+      "bulletinFamily": "unix",
+      //====mpv.vul_id，数组里面每个元素对应一行记录
+      "cvelist": [
+        "CVE-2014-0160"
+      ],
+      "modified": "2018-06-06T20:24:06",
+      "id": "RHSA-2014:0376",
+      "href": "https://access.redhat.com/errata/RHSA-2014:0376",
+      "viewCount": 12,
+      //OVAL文件只有cve的cvss，没有补丁对应的cvss，忽略
+      "cvss": {
+        "score": 5.0,
+        "vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N"
+      }
+    }
+  }
+]
+
+
