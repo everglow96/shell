@@ -25,7 +25,7 @@ function check_mysql_service(){
 function backup_mysql(){
     echo ${backup_dir}/${date_this}
     `mkdir -p ${backup_dir}/${date_this}`
-    `mysqldump -u${db_user} -p${db_password} --host=${db_ip} --port=${db_port} -B oplus -R | gzip > ${backup_dir}/${date_this}/${date_this}-oplus-FULL.sql.gz`
+    `mysqldump -u${db_user} -p${db_password} --host=${db_ip} --port=${db_port} --databases oplus -R | gzip > ${backup_dir}/${date_this}/${date_this}-oplus-FULL.sql.gz`
     flag=`echo $?`
     if [[ ${flag} -eq 0 ]];then
             echo "success backup to $backup_dir/${date_this}/${date_this}-oplus-FULL.sql.gz"
