@@ -53,8 +53,7 @@ function backup_file(){
     tar -cvf ${backup_dir}/${date_this}/${date_this}-fs-repos.tar /opt/oplus/assets/gfs/fs-repos/
     flag=`echo $?`
     if [[ ${flag} -eq 0 ]];then
-        echo "success backup file to ${backup_dir}/${date_this}/${date_this}-git-repos.tar"
-    else
+        echo "success backup file to ${backup_dir}/${date_this}/${date_this}-fs-repos.tar"
         echo "backup file fail!"
         exit
     fi
