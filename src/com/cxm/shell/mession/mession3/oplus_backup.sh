@@ -28,10 +28,35 @@ function backup_mysql(){
     `mysqldump -u${db_user} -p${db_password} --host=${db_ip} --port=${db_port} --databases oplus -R | gzip > ${backup_dir}/${date_this}/${date_this}-oplus-FULL.sql.gz`
     flag=`echo $?`
     if [[ ${flag} -eq 0 ]];then
-            echo "success backup to $backup_dir/${date_this}/${date_this}-oplus-FULL.sql.gz"
+        echo "success backup mysql to $backup_dir/${date_this}/${date_this}-oplus-FULL.sql.gz"
     else
-            echo "backup fail!"
-            exit
+        echo "backup mysql fail!"
+        exit
+    fi
+}
+
+
+function backup_git(){
+    tar -cvf ${backup_dir}/${date_this}/${date_this}-git-repos.tar /opt/oplus/assets/gfs/git-repos/
+    flag=`echo $?`
+    if [[ ${flag} -eq 0 ]];then
+        echo "success backup git to ${backup_dir}/${date_this}/${date_this}-git-repos.tar"
+    else
+        echo "backup git fail!"
+        exit
+    fi
+}
+
+
+
+function backup_file(){
+    tar -cvf ${backup_dir}/${date_this}/${date_this}-fs-repos.tar /opt/oplus/assets/gfs/fs-repos/
+    flag=`echo $?`
+    if [[ ${flag} -eq 0 ]];then
+        echo "success backup file to ${backup_dir}/${date_this}/${date_this}-git-repos.tar"
+    else
+        echo "backup file fail!"
+        exit
     fi
 }
 
@@ -39,3 +64,5 @@ function backup_mysql(){
 load_config
 check_mysql_service
 backup_mysql
+backup_git
+backup_file
