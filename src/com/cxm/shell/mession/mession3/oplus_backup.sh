@@ -54,6 +54,7 @@ function backup_file(){
     flag=`echo $?`
     if [[ ${flag} -eq 0 ]];then
         echo "success backup file to ${backup_dir}/${date_this}/${date_this}-fs-repos.tar"
+    else
         echo "backup file fail!"
         exit
     fi
