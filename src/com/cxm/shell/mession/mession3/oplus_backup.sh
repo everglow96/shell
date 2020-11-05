@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# 脚本备份
 
 function load_config(){
     backup_dir=`cat oplus_backup.conf | grep backup_dir | awk -F'=' '{ print $2 }' | sed s/[[:space:]]//g`
@@ -8,6 +8,7 @@ function load_config(){
     db_user=`cat oplus_backup.conf | grep db_user | awk -F'=' '{ print $2 }' | sed s/[[:space:]]//g`
     db_password=`cat oplus_backup.conf | grep db_password | awk -F'=' '{ print $2 }' | sed s/[[:space:]]//g`
     date_this=`date +%Y%m%d`
+    date_before_7 = `date -d "7 days ago" +%Y%m%d`
 }
 
 
@@ -60,9 +61,13 @@ function backup_file(){
     fi
 }
 
+function delete_file() {
+    `rm -rf /opt/oplus/backup/${date_before_7}`
+}
 
 load_config
 check_mysql_service
 backup_mysql
 backup_git
 backup_file
+delete_file
