@@ -8,7 +8,7 @@ function load_config(){
     db_user=`cat oplus_backup.conf | grep db_user | awk -F'=' '{ print $2 }' | sed s/[[:space:]]//g`
     db_password=`cat oplus_backup.conf | grep db_password | awk -F'=' '{ print $2 }' | sed s/[[:space:]]//g`
     date_this=`date +%Y%m%d`
-    date_before_7 = `date -d "7 days ago" +%Y%m%d`
+    date_before_7=`date -d "7 days ago" +%Y%m%d`
 }
 
 
