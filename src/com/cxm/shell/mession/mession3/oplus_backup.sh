@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 # 脚本备份
+source oplus_backup.conf
 
 function load_config(){
-    backup_dir=`cat oplus_backup.conf | grep backup_dir | awk -F'=' '{ print $2 }' | sed s/[[:space:]]//g`
-    db_ip=`cat oplus_backup.conf | grep db_ip | awk -F'=' '{ print $2 }' | sed s/[[:space:]]//g`
-    db_port=`cat oplus_backup.conf | grep db_port | awk -F'=' '{ print $2 }' | sed s/[[:space:]]//g`
-    db_user=`cat oplus_backup.conf | grep db_user | awk -F'=' '{ print $2 }' | sed s/[[:space:]]//g`
-    db_password=`cat oplus_backup.conf | grep db_password | awk -F'=' '{ print $2 }' | sed s/[[:space:]]//g`
     date_this=`date +%Y%m%d`
     date_before_7=`date -d "7 days ago" +%Y%m%d`
 }
@@ -61,8 +57,16 @@ function backup_file(){
     fi
 }
 
+function copyFileToRemote() {
+    echo "start copy to ${remote_ip}"
+    `scp -r ${backup_dir}/${date_this} root@${remote_ip}:${backup_dir}/${date_this}`
+}
+
 function delete_file() {
+    echo "start delete old folder and file ${date_before_7}"
     `rm -rf /opt/oplus/backup/${date_before_7}`
+    `ssh root@${remote_ip} "rm -rf" ${backup_dir}/${date_before_7}  "exit"`
+    echo "backup finish"
 }
 
 load_config
@@ -70,4 +74,5 @@ check_mysql_service
 backup_mysql
 backup_git
 backup_file
+copyFileToRemote
 delete_file
