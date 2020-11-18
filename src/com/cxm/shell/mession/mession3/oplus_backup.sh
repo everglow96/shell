@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 脚本备份
-source oplus_backup.conf
+source /home/chenxinmao/shell/oplus_backup.conf
 
 function load_config(){
     date_this=`date +%Y%m%d`
@@ -65,7 +65,7 @@ function copyFileToRemote() {
 function delete_file() {
     echo "start delete old folder and file ${date_before_7}"
     `rm -rf /opt/oplus/backup/${date_before_7}`
-    `ssh root@${remote_ip} "rm -rf" ${backup_dir}/${date_before_7}  "exit"`
+    `ssh root@${remote_ip} "rm -rf ${backup_dir}/${date_before_7}"`
     echo "backup finish"
 }
 
